@@ -10,8 +10,11 @@ function Item(props) {
     name: "CAT",
     value: "that cat say meow",
   });
-
+  store.dispatch({
+    type: "SOUND",
+  });
   cats = store.getState();
+  console.log(cats);
   function increment() {
     setCounter(counter + 1);
   }
@@ -28,10 +31,13 @@ function Item(props) {
       <button onClick={increment}>
         <h1>+</h1>
       </button>
-      {cats.map((cat) => (
+      {cats.reducerMeow.map((cat) => (
         <p key={cat.name}>
           {cat.name} {cat.value}
         </p>
+      ))}
+      {cats.reducerDog.map((dog) => (
+        <p key={dog.sound}>{dog.sound}</p>
       ))}
     </div>
   );

@@ -1,33 +1,13 @@
-import { createStore } from "redux";
+import { combineReducers, createStore } from "redux";
+import initialState from "./initialState";
+import reducerMeow from "./Cats/catStore";
+import reducerDog from "./Dogs/dogStore";
 
-const initialCat = [];
-const store = createStore(reducerMeow, initialCat);
+const reducer = combineReducers({
+  reducerMeow: reducerMeow,
+  reducerDog: reducerDog,
+});
 
-function reducerMeow(state = [], action) {
-  switch (action.type) {
-    case "CREATE_CAT":
-      if (!state.map((item) => item.name).includes(action.name))
-        return [
-          ...state,
-          {
-            name: action.name,
-            value: action.value,
-          },
-        ];
-      return state;
-    case "UPDATE_CAT":
-      return state.map((cat) => {
-        if (cat.name === action.name) {
-          return {
-            name: cat.name,
-            value: action.value,
-          };
-        } else return { name: cat.name, value: cat.value };
-      });
-
-    default:
-      return state;
-  }
-}
+const store = createStore(reducer, initialState);
 
 export default store;
